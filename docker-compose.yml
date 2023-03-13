@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: php:8.2-apache
+    ports:
+      - 80:80
+    # expose:
+    #   - 9000
+    volumes:
+      - .:/var/www/html
+      - ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'image-service'
+      MYSQL_USER: 'abd'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'pwd'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'rootpwd'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+      # volumes:
+      #   - my-db:/var/lib/mysql
+
+  db-test:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'image-service'
+      MYSQL_USER: 'abd'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'pwd'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'rootpwd'
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - '3307:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+      # volumes:
+      #   - my-db:/var/lib/mysql
