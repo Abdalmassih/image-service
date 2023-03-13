@@ -8,15 +8,17 @@ PHP8 (with basic pure MVC structure), MySQL, PHPUnit, Guzzle, Carbon, GD lib (fo
 ### Setup ###
 
 * clone the repo from Github,
-* run `docker-compose up -d`,
+* run `docker-compose up -d` to start the containers,
+* run `composer install` to download dependencies and create autoload files,
 * import `img-service.sql` dump file into the main DB,
 * check the app in the browser at `localhost`,
 * to run tests: `vendor/bin/phpunit`.
 
 ### Possible optimizations
 
-* more tests (with test DB setup)
-* full CRUD operations
+* more tests (with test DB setup),
+* full CRUD operations,
+* more validations for better security.
   
 ### More about the original requirements description
 
